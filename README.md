@@ -17,4 +17,4 @@
 
 ## Ссылка на GHP
 
-https://romantikhonov375.github.io/express-mesto-gha/
+https://github.com/RomanTikhonov375/express-mesto-gha

@@ -7,7 +7,7 @@ export const getCards = async (req, res) => {
     const cards = await Card.find({});
     return res.status(StatusCodes.OK).send(cards); // массив карточек
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Ошибка на стророне сервера', error: error.message });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка', error: error.message });
   }
 };
 
@@ -23,7 +23,7 @@ export const createCard = async (req, res) => {
     if (error instanceof mongoose.Error.ValidationError) {
       return res.status(StatusCodes.BAD_REQUEST).send({ message: 'Ошибка валидации', error: error.message });
     }
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Ошибка на стороне сервера', error: error.message });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка', error: error.message });
   }
 };
 
@@ -42,7 +42,7 @@ export const deleteCard = async (req, res) => {
     if (error instanceof mongoose.Error.CastError) {
       return res.status(StatusCodes.BAD_REQUEST).send({ message: 'Передан не валидный id', error: error.message });
     }
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Ошибка на стророне сервера', error: error.message });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка', error: error.message });
   }
 };
 
@@ -64,7 +64,7 @@ export const likeCard = async (req, res) => {
     if (error instanceof mongoose.Error.CastError) {
       return res.status(StatusCodes.BAD_REQUEST).send({ message: 'Передан не валидный id', error: error.message });
     }
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Ошибка на стророне сервера', error: error.message });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка', error: error.message });
   }
 };
 
@@ -86,6 +86,6 @@ export const deleteLike = async (req, res) => {
     if (error instanceof mongoose.Error.CastError) {
       return res.status(StatusCodes.BAD_REQUEST).send({ message: 'Передан не валидный id', error: error.message });
     }
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Ошибка на стророне сервера', error: error.message });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка', error: error.message });
   }
 };

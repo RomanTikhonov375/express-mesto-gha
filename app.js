@@ -1,14 +1,15 @@
 import express, { json } from 'express';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
+import { config } from 'dotenv';
 import router from './routes/index';
-// Слушаем 3000 порт
-const { PORT = 3000 } = process.env;
 
+const { PORT = 3000 } = process.env;
+config();
 const app = express();
 app.use(helmet());
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
+mongoose.connect(process.env.DB_CONN);
 app.use(json());
 app.use((req, res, next) => {
   req.user = {
