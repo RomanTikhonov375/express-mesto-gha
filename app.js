@@ -6,6 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 import { errors, celebrate, Joi } from 'celebrate';
 import router from './routes/index';
 import { createUser, login } from './controllers/users';
+import NotFoundError from './utils/errors/NotFoundError';
 
 const { PORT = 3000 } = process.env;
 const { DB_CONN = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
@@ -31,7 +32,9 @@ app.post('/signin', celebrate({
     password: Joi.string().min(2).max(30).required(),
   }),
 }), login);
-
+app.use((req, res) => {
+  throw new NotFoundError('Страница не найдена');
+});
 app.use(errors());
 app.use((err, req, res, next) => {
   // если у ошибки нет статуса, выставляем 500
