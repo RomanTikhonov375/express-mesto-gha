@@ -8,11 +8,12 @@ import router from './routes/index';
 import { createUser, login } from './controllers/users';
 
 const { PORT = 3000 } = process.env;
+const { DB_CONN = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 config();
 const app = express();
 app.use(helmet());
 
-mongoose.connect(process.env.DB_CONN);
+mongoose.connect(DB_CONN);
 app.use(json());
 app.use(router);
 app.post('/signup', celebrate({
