@@ -41,9 +41,7 @@ export const createUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
-    const newUser = await User.create({ email, password: hash }, {
-      runValidators: true,
-    });
+    const newUser = await User.create({ email, password: hash });
     return res.status(StatusCodes.CREATED).send({
       email: newUser.email,
       _id: newUser._id,
@@ -82,12 +80,15 @@ export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }, { runValidators: true }).select('+password');
+    if (!user) {
+      throw new UnauthorizedError('Пользователь с таким Email в БД не найден');
+    }
     const matched = await bcrypt.compare(String(password), user.password);
     if (!matched) {
-      throw new UnauthorizedError('Необхрдимо авторизоваться');
+      throw new UnauthorizedError('Необходимо авторизоваться');
     }
     const token = auth({ _id: user._id });
-    return res.send(token);
+    return res.send({ token: `${token}` });
   } catch (error) {
     return next(error);
   }
