@@ -131,7 +131,7 @@ export const updateProfile = async (req, res, next) => {
 export const updateAvatar = async (req, res, next) => {
   try {
     const user = await findByIdAndUpdate(req.user._id, req.body, next);
-    return res.status(StatusCodes.OK).send(user.avatar);
+    return res.status(StatusCodes.OK).send({ avatar: user.avatar });
   } catch (error) {
     return next(error);
   }
