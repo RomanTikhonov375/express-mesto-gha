@@ -12,7 +12,7 @@ config();
 const app = express();
 app.use(helmet());
 
-mongoose.connect(process.env.DB_CONN);
+mongoose.connect(String(process.env.DB_CONN));
 app.use(json());
 app.use(router);
 app.post('/signup', celebrate({
