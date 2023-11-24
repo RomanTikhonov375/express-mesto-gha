@@ -29,7 +29,7 @@ export const getUsersById = async (req, res, next) => {
     return res.status(StatusCodes.OK).send(user);
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
-      next(new BadRequestError('Передан не валидный id'));
+      return next(new BadRequestError('Передан не валидный id'));
     }
     return next(error);
   }
@@ -55,10 +55,10 @@ export const createUser = async (req, res, next) => {
     });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
-      next(new BadRequestError(error));
+      return next(new BadRequestError(error));
     }
     if (error.code === ERROR_CODE_DUPLICATE_MONGO) {
-      next(new UserAlreadExistsError('Пользователь уже существует'));
+      return next(new UserAlreadExistsError('Пользователь уже существует'));
     }
     return next(error);
   }
@@ -74,7 +74,7 @@ export const getCurrentUser = async (req, res, next) => {
     return res.status(StatusCodes.OK).send(currentUser);
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
-      next(new BadRequestError('Передан не валидный id'));
+      return next(new BadRequestError('Передан не валидный id'));
     }
     return next(error);
   }
@@ -110,10 +110,10 @@ async function findByIdAndUpdate(reqId, reqBody, next) {
     return currentUser;
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
-      next(new BadRequestError(error));
+      return next(new BadRequestError(error));
     }
     if (error instanceof mongoose.Error.DocumentNotFoundError) {
-      next(new NotFoundError('Пользователь по id не найдена'));
+      return next(new NotFoundError('Пользователь по id не найдена'));
     }
     return next(error);
   }

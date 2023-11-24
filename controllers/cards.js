@@ -26,10 +26,10 @@ export const createCard = async (req, res, next) => {
     }));
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
-      next(new BadRequestError(error));
+      return next(new BadRequestError(error));
     }
     if (error instanceof mongoose.Error.ValidationError) {
-      next(new BadRequestError(error));
+      return next(new BadRequestError(error));
     }
     return next(error);
   }
@@ -49,7 +49,7 @@ export const deleteCard = async (req, res, next) => {
     } throw new NoAccessRightsError('Можно удалять только свои карточки');
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
-      next(new BadRequestError('Передан не валидный id'));
+      return next(new BadRequestError('Передан не валидный id'));
     }
     return next(error);
   }
@@ -87,7 +87,7 @@ export const deleteLike = async (req, res, next) => {
     return res.status(StatusCodes.OK).send(card); //  карточка
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
-      next(new BadRequestError('Передан не валидный id'));
+      return next(new BadRequestError('Передан не валидный id'));
     }
     return next(error);
   }

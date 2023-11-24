@@ -3,6 +3,7 @@ import { celebrate, Joi } from 'celebrate';
 import {
   getUsers, getUsersById, updateProfile, updateAvatar, getCurrentUser,
 } from '../controllers/users';
+import { URLREGEXP } from '../utils/constans';
 
 const userRouter = Router();
 
@@ -22,7 +23,7 @@ userRouter.patch('/me', celebrate({
 }), updateProfile);
 userRouter.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/).required(),
+    avatar: Joi.string().pattern(URLREGEXP).required(),
   }),
 }), updateAvatar);
 

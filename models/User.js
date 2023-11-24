@@ -36,7 +36,6 @@ const userSheme = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlenght: [8, 'Минимальная длинна 8 символов'],
       select: false,
     },
   },

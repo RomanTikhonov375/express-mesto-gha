@@ -3,6 +3,7 @@ import { celebrate, Joi } from 'celebrate';
 import {
   createCard, getCards, deleteCard, likeCard, deleteLike,
 } from '../controllers/cards';
+import { URLREGEXP } from '../utils/constans';
 
 const cardRouter = Router();
 
@@ -10,7 +11,7 @@ cardRouter.get('/', getCards);
 cardRouter.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().pattern(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/),
+    link: Joi.string().required().pattern(URLREGEXP),
   }),
 }), createCard);
 cardRouter.delete('/:id', celebrate({
