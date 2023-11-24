@@ -3,7 +3,7 @@ import { celebrate, Joi } from 'celebrate';
 import {
   createCard, getCards, deleteCard, likeCard, deleteLike,
 } from '../controllers/cards';
-import { URLREGEXP } from '../utils/constans';
+import URLREGEXP from '../utils/constans';
 
 const cardRouter = Router();
 

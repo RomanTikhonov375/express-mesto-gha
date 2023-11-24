@@ -3,7 +3,7 @@ import { celebrate, Joi } from 'celebrate';
 import {
   getUsers, getUsersById, updateProfile, updateAvatar, getCurrentUser,
 } from '../controllers/users';
-import { URLREGEXP } from '../utils/constans';
+import URLREGEXP from '../utils/constans';
 
 const userRouter = Router();
 
